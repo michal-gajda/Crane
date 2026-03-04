@@ -1,2 +1,25 @@
 <Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Application/">
+    <Project Path="src/Application/Crane.Application.csproj" />
+  </Folder>
+  <Folder Name="/src/Domain/">
+    <Project Path="src/Domain/Crane.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/Infrastructure/">
+    <Project Path="src/Infrastructure/Crane.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/Crane.Shared.csproj" />
+  </Folder>
+  <Folder Name="/src/WebApi/">
+    <Project Path="src/WebApi/Crane.WebApi.csproj" />
+  </Folder>
+  <Folder Name="/src/WebUI/">
+    <Project Path="src/WebUI/Crane.WebUI.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+  <Folder Name="/tests/Application.FunctionalTests/">
+    <Project Path="tests/Application.FunctionalTests/Crane.Application.FunctionalTests.csproj" />
+  </Folder>
 </Solution>
