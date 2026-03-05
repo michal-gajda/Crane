@@ -1,4 +1,4 @@
-﻿namespace Crane.Application.FunctionalTests;
+namespace Crane.Application.FunctionalTests;
 
 [TestClass]
 public sealed class Test1

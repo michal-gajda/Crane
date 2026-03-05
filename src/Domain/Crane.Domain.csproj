@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Using Include="Crane.Domain.Enums" />
+    <Using Include="Crane.Domain.Types" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Crane.Infrastructure" />
+  </ItemGroup>
+
 </Project>
