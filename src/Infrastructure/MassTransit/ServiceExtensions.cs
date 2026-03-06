@@ -1,5 +1,6 @@
 namespace Crane.Infrastructure.MassTransit;
 
+using Crane.Infrastructure.EntityFramework;
 using Crane.Infrastructure.MassTransit.ConsumerDefinitions;
 using Crane.Infrastructure.MassTransit.Consumers;
 using global::MassTransit;
@@ -33,6 +34,11 @@ internal static class ServiceExtensions
 
         services.AddMassTransit(bus =>
         {
+            bus.AddEntityFrameworkOutbox<CraneDbContext>(outboxCfg =>
+            {
+                outboxCfg.UseSqlite();
+            });
+
             bus.AddConsumer<SendFormConsumer, SendFormConsumerDefinition>();
 
             bus.UsingRabbitMq((context, cfg) =>
