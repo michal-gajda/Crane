@@ -35,7 +35,7 @@ dotnet add src/Infrastructure package Microsoft.EntityFrameworkCore
 dotnet add src/Infrastructure package Microsoft.EntityFrameworkCore.Design
 dotnet add src/Infrastructure package Microsoft.EntityFrameworkCore.Tools
 dotnet add src/Infrastructure package Microsoft.EntityFrameworkCore.InMemory
-dotnet add src/Infrastructure package Microsoft.EntityFrameworkCore.Sqlite
+dotnet add src/Infrastructure package Oracle.EntityFrameworkCore
 dotnet add src/Infrastructure package MassTransit.RabbitMQ --version 8.5.8
 ```
 
@@ -68,4 +68,30 @@ dotnet add src/WebApi package OpenTelemetry.Instrumentation.Process --version 1.
 dotnet new blazorwasm --framework net10.0 --no-https --use-program-main --output src/WebUI --name Crane.WebUI
 dotnet sln add src/WebUI
 dotnet add src/WebApi reference src/WebUI
+```
+
+## OracleDB setup
+
+Restore local tools (once after clone):
+
+```powershell
+dotnet tool restore
+```
+
+Connection string used by API:
+
+```text
+User Id=Crane;Password=Crane;Data Source=localhost:1521/FREEPDB1
+```
+
+Apply migrations:
+
+```powershell
+dotnet ef database update --project src/Infrastructure/Crane.Infrastructure.csproj --startup-project src/WebApi/Crane.WebApi.csproj --context Crane.Infrastructure.EntityFramework.CraneDbContext
+```
+
+Run API:
+
+```powershell
+dotnet run --project src/WebApi/Crane.WebApi.csproj
 ```

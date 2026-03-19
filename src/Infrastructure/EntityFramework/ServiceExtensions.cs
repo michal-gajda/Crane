@@ -9,9 +9,12 @@ internal static class ServiceExtensions
 {
     public static void AddEntityFramework(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("Crane") ?? "Data Source=crane.db";
+        var connectionString = configuration.GetConnectionString("Crane") ?? "User Id=Crane;Password=Crane;Data Source=localhost:1521/FREEPDB1";
 
-        services.AddDbContext<CraneDbContext>(cfg => cfg.UseSqlite(connectionString));
+        services.AddDbContext<CraneDbContext>(cfg => cfg
+            .UseOracle(connectionString, o => o
+                .MaxBatchSize(100)
+                .UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
         services.AddHostedService<EntityFrameworkInitializerHostedService>();
     }
 
@@ -22,7 +25,7 @@ internal static class ServiceExtensions
             await using var scope = serviceProvider.CreateAsyncScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<CraneDbContext>();
 
-            await dbContext.Database.EnsureCreatedAsync(cancellationToken);
+            await dbContext.Database.MigrateAsync(cancellationToken);
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

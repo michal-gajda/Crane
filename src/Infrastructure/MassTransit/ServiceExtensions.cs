@@ -1,5 +1,6 @@
 namespace Crane.Infrastructure.MassTransit;
 
+using System.Data;
 using Crane.Infrastructure.EntityFramework;
 using Crane.Infrastructure.MassTransit.ConsumerDefinitions;
 using Crane.Infrastructure.MassTransit.Consumers;
@@ -36,7 +37,11 @@ internal static class ServiceExtensions
         {
             bus.AddEntityFrameworkOutbox<CraneDbContext>(outboxCfg =>
             {
-                outboxCfg.UseSqlite();
+                outboxCfg.IsolationLevel = IsolationLevel.ReadCommitted;
+                outboxCfg.UseOracle();
+                outboxCfg.QueryDelay = TimeSpan.FromSeconds(1);
+                outboxCfg.QueryMessageLimit = 100;
+                outboxCfg.QueryTimeout = TimeSpan.FromSeconds(30);
             });
 
             bus.AddConsumer<SendFormConsumer, SendFormConsumerDefinition>();
