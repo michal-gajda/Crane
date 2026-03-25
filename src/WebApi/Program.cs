@@ -61,6 +61,8 @@ public static class Program
 
         var app = builder.Build();
 
+        app.UseHealthChecks("/healthz");
+
         if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
